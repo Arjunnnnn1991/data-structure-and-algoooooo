@@ -11,26 +11,42 @@
  */
 class Solution {
 public:
-    void doto (TreeNode* root,int lo,int hi){
+    void work(TreeNode* &root,int lo,int hi){
         if(root==NULL) return;
+        while(root&&(root->val>hi||root->val<lo))
+       { while(root&&root->val>hi){
+            root=root->left;
+        }
+        if(!root) return;
+        while(root&&root->val<lo){
+            root=root->right;
+        }}
+        
+        if(!root )return;
         while(root->left){
-            if(root->left->val>hi) root->left=root->left->left;
-            else if(root->left->val<lo) root->left=root->left->right;
+            if(root->left->val<lo){
+                root->left=root->left->right;
+            }
+            else if(root->left->val>hi){
+                root->left=root->left->left;
+            }
             else break;
         }
-          while(root->right){
-            if(root->right->val>hi) root->right=root->right->left;
-            else if(root->right->val<lo) root->right=root->right->right;
+        while(root->right){
+            if(root->right->val>hi){
+                root->right=root->right->left;
+            }
+            else if(root->right->val<lo){
+                root->right=root->right->right;
+            }
             else break;
         }
-        doto(root->left,lo,hi);
-        doto(root->right,lo,hi);
-
+        work(root->left,lo,hi);
+        work(root->right,lo,hi);
+        return;
     }
     TreeNode* trimBST(TreeNode* root, int low, int high) {
-     TreeNode* dummy=new TreeNode(INT_MAX);
-     dummy->left=root;
-     doto(dummy,low,high)   ;
-     return dummy->left;
+        work(root,low,high);
+        return root;
     }
 };
