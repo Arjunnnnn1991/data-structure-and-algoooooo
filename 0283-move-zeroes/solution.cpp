@@ -1,22 +1,18 @@
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums) {
-        int i=0,j=nums.size()-1;
-        
-        while(i<j){
-            if(nums[i]!=0){
-                i++;
+    void moveZeroes(vector<int>& arr) {
+        int write=0, read=0;
+        while(read<arr.size()){
+            if(arr[read]!=0){
+                arr[write]=arr[read];
+                // arr[read]=0;
+                write++;
             }
-            else{
-                for(int w=i;w<j;w++){
-                    nums[w]=nums[w+1];
-
-                }
-                
-                nums[j]=0;
-                j--;
-            }
+            read++;
         }
-        
+        for(write;write<arr.size();write++){
+            arr[write]=0;
+        }
+        return;
     }
 };
