@@ -11,17 +11,32 @@
  */
 class Solution {
 public:
-      void preme(TreeNode* root,vector<int> &ans){
-        if(root==NULL) return;
-       
-        preme(root->left,ans);
-         ans.push_back(root->val);
-        preme(root->right,ans);
-        return;
-    }
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
-        preme(root,ans);
-        return ans;
+        TreeNode* curr=root;
+        while(curr){
+            if(curr->left){
+                TreeNode* pred=curr->left;
+                while(pred->right&&pred->right!=curr){
+                    pred=pred->right;
+                }
+                if(pred->right==NULL){
+                    pred->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    pred->right=NULL;
+                    ans.push_back(curr->val);
+                    curr=curr->right;
+                }
+            }
+            else{// yani left ka kaam hogya h abhi wala prin tkro and go to right
+            ans.push_back(curr->val);
+            curr=curr->right;
+
+            }
+           
+        }
+         return ans;
     }
 };
