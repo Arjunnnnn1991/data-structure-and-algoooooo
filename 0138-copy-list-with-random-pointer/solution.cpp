@@ -12,7 +12,52 @@ public:
         random = NULL;
     }
 };
-*/
+*/ // Node* a = head;
+        // Node* b = dummy->next;
+
+        // while(a && b){
+        //     Node* nextA = a->next;
+        //     Node* nextB = b->next;
+
+        //     a->next = b;
+        //     b->next = nextA;
+
+        //     a = nextA;
+        //     b = nextB;
+        // }
+
+       
+        // Node* t = head;
+        // while(t){
+        //     if(t->random){
+        //         t->next->random = t->random->next;  
+        //     }
+        //     t = t->next->next;
+        // }
+
+        
+        // Node*d1=new Node(1);   
+        // Node*d2=new Node(1);  
+        // Node* dd1=d1;
+        // Node* dd2=d2;
+
+        // Node* tt=head;         
+
+        // while(tt){
+        //     dd1->next=tt;
+        //     dd1=dd1->next;
+
+        //     Node* copy = tt->next;
+        //     dd2->next=copy;
+        //     dd2=dd2->next;
+
+        //     tt = copy->next;   
+        // }
+
+        // dd1->next=NULL;
+        // dd2->next=NULL;
+
+        // return d2->next;
 
 class Solution {
 public:
@@ -30,53 +75,24 @@ public:
             temp=temp->next;
             dtemp=dtemp->next;
         }
+    dummy=dummy->next;
+    unordered_map<Node*,Node*> m;
+    Node* w=head;
+    Node* k=dummy;
+    while(w){
+        m[w]=k;
+        w=w->next;
+        k=k->next;
+    }
+    for(auto x:m){
+        Node * tempp=x.first;
+        Node* r=x.second;
+      if(tempp&&tempp->random)  {Node* u=tempp->random;
+        r->random=m[u];}
+    }
+    return dummy;
 
        
-        Node* a = head;
-        Node* b = dummy->next;
-
-        while(a && b){
-            Node* nextA = a->next;
-            Node* nextB = b->next;
-
-            a->next = b;
-            b->next = nextA;
-
-            a = nextA;
-            b = nextB;
-        }
-
        
-        Node* t = head;
-        while(t){
-            if(t->random){
-                t->next->random = t->random->next;  
-            }
-            t = t->next->next;
-        }
-
-        
-        Node*d1=new Node(1);   
-        Node*d2=new Node(1);  
-        Node* dd1=d1;
-        Node* dd2=d2;
-
-        Node* tt=head;         
-
-        while(tt){
-            dd1->next=tt;
-            dd1=dd1->next;
-
-            Node* copy = tt->next;
-            dd2->next=copy;
-            dd2=dd2->next;
-
-            tt = copy->next;   
-        }
-
-        dd1->next=NULL;
-        dd2->next=NULL;
-
-        return d2->next;
     }
 };
