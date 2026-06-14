@@ -10,35 +10,33 @@
  */
 class Solution {
 public:
-ListNode* revmedaaddy(ListNode* head){
-    ListNode* cur=head;
-    ListNode* pre=NULL;
-    ListNode* post=head->next;
-    while(post){
-        cur->next=pre;
-        pre=cur;
-        cur=post;
-        post=post->next;
-    }
-    cur->next=pre;
-    return cur;
-}
     int pairSum(ListNode* head) {
-        if(head->next->next==NULL) return head->val+head->next->val;
-    ListNode * slow=head;
-    ListNode* fast=head;
-    while(fast){
-        fast=fast->next->next;
-        slow=slow->next;
-    }
-    fast=revmedaaddy(slow);
-    int maxi=INT_MIN;
-    while(fast){
-        int val=fast->val+head->val;
-        if(maxi<val) maxi=val;
-        fast=fast->next;
-        head=head->next;
-    }
-    return maxi;
+        if(!head->next->next)return head->val+head->next->val;
+        ListNode* l=head;
+        ListNode*slow=head;
+        ListNode*fast=head;
+        while(l->next)l=l->next;
+        while(fast&&fast->next&&fast->next->next){
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        ListNode* pre=NULL;
+        ListNode*cur=slow->next;
+        ListNode*post=slow->next->next;
+        while(cur){
+            cur->next=pre;
+            pre=cur;
+            cur=post;
+            if(post)post=post->next;
+        }
+        int maxi=-1;
+        while(head&&l){
+            maxi=max(maxi,head->val+l->val);
+            l=l->next;
+            if(l==head) break;
+            else head=head->next;
+        }
+        return maxi;
+
     }
 };
