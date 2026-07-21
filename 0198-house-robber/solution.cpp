@@ -1,24 +1,15 @@
 class Solution {
 public:
-int move(vector<int> &memory,int n,vector<int>&arr){
-    if(n==arr.size()-1){
-        return arr[arr.size()-1];
+    int help(int i,vector<int>&dp,vector<int>&arr){
+        if(i>=arr.size()) return 0;
+        if(i==arr.size()-1) return arr[i];
+        if(dp[i]!=-1) return dp[i];
+        return dp[i]=max(help(i+1,dp,arr),arr[i]+help(i+2,dp,arr));
     }
-    else if(n==arr.size()-2) return arr[arr.size()-2];
-    else if(n>=arr.size()) return 0;
-    if(memory[n]!=-1) return memory[n];
-    int x=move(memory,n+2,arr);
-    int y=move(memory,n+3,arr);
-    memory[n]=max(x,y)+arr[n];
-    int z=move(memory,n+4,arr);
-    memory[n+1]=max(y,z)+arr[n+1];
-    return max(memory[n],memory[n+1]);
-}
-    int rob(vector<int>& arr) {
-        if(arr.size()==1) return arr[0];
-        else if(arr.size()==2) return (arr[0]>arr[1])? arr[0]:arr[1];
-       vector<int> memory(arr.size(),-1);
-       return move(memory,0,arr);
-        // return max(memory[memory.size()-1],memory[memory.size()-2]);
+    int rob(vector<int>& nums) {
+        if(nums.size()==1) return nums[0];
+        else if(nums.size()==2) return max(nums[0],nums[1]);
+        vector<int>dp(nums.size(),-1);
+        return help(0,dp,nums);
     }
 };
