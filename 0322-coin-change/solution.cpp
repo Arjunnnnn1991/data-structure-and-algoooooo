@@ -4,8 +4,8 @@ public:
     int rec(vector<int>&dp,vector<int>&coins,int amount,int have){
         if(amount==0) return 1+dp[0];
         else if(amount<0) return INT_MAX;
-       else if(dp[amount]!=-1) return dp[amount];
-       else{
+        else if(dp[amount]!=-1) return dp[amount];
+        else{
         int opt=INT_MAX-1;
         for(auto x:coins){
             opt=min(opt,rec(dp,coins,amount-x,have));
